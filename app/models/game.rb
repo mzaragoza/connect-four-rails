@@ -15,8 +15,8 @@ class Game < ActiveRecord::Base
 
   private
   def create_players
-    players.create(name: 'red')
-    players.create(name: 'blue')
+    players.create(name: 'Red')
+    players.create(name: 'Black')
   end
 
 end
