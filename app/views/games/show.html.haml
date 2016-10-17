@@ -1,7 +1,7 @@
 - if game.winner.present?
   %h1= "WINNER #{game.winner}!!!"
 - else
-  %h1= player.name
+  %h1= game.current_player.name
   .row
   - 1.upto(game.rows) do |row|
     - game.columns.times do |column|
@@ -17,7 +17,7 @@
 = link_to games_path, method: 'POST', class: 'btn btn-info' do
   New Game
 
-%form#form{:action => game_player_moves_path(game, player), :method => "POST", :style => "display: hidden"}
+%form#form{:action => game_player_moves_path(game, game.current_player), :method => "POST", :style => "display: hidden"}
   %input#column{:name => "column", :type => "hidden", :value => ""}/
 
 :javascript

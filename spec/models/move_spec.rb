@@ -11,7 +11,7 @@ describe Move, type: :model do
   it { should validate_presence_of :column }
 
   it { should validate_numericality_of(:row) }
-  it { should_not allow_value(-1).for(:row) }
+  it { should_not allow_value(0).for(:row) }
 
   it "returns the last row if there are none" do
     game = Game.create(rows: 10)
