@@ -8,6 +8,11 @@
       - else
         0
   .row
+%br
+%br
+%br
+= link_to games_path, method: 'POST', class: 'btn btn-info' do
+  New Game
 
 %form#form{:action => game_player_moves_path(game, player), :method => "POST", :style => "display: hidden"}
   %input#column{:name => "column", :type => "hidden", :value => ""}/
