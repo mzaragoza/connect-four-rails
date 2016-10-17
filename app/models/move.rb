@@ -23,7 +23,7 @@ class Move < ActiveRecord::Base
   def winning_move?
     if true ==  false
       game = self.game
-      game.winner = player.id
+      game.winner = player.name
       game.save
     end
   end
