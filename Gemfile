@@ -3,8 +3,14 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use pg as the database for Active Record
+gem 'pg'
+
+gem "haml-rails"                                                                     # templating engine
+gem 'awesome_print'                                                                  # Pretty print your Ruby objects with style
+gem 'decent_exposure'                                                                # A helper for creating declarative interfaces in controllers
+gem "twitter-bootstrap-rails"
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -42,6 +48,18 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "better_errors"                     # Better error page for Rack apps
+  gem "binding_of_caller"                 # Retrieve the binding of a method's caller
+end
+
+group :test do
+  gem "spring-commands-rspec"             # For "spring"-loading rspec
+  gem 'capybara'                          # Acceptance test framework for web applications
+  gem 'database_cleaner'                  # Strategies for cleaning databases in Ruby
+  gem 'rspec-collection_matchers'         # Collection cardinality matchers, extracted from rspec-expectations
+  gem 'rspec-rails', '~> 3.0'             # RSpec for Rails-3
+  gem 'rspec-retry'                       # retry randomly failing rspec example
+  gem 'shoulda'                           # Collection of testing matchers
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

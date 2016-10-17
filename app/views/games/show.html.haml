@@ -1,0 +1,24 @@
+%h1= player.name
+.row
+- 1.upto(game.rows) do |row|
+  - game.columns.times do |column|
+    .col-md-1{id: "row_#{row}_column_#{column}"}
+      - if move = game.moves.find_by(row: row, column:column)
+        = move.player.name
+      - else
+        0
+  .row
+
+%form#form{:action => game_player_moves_path(game, player), :method => "POST", :style => "display: hidden"}
+  %input#column{:name => "column", :type => "hidden", :value => ""}/
+
+:javascript
+  $('div').click(function(){
+      id  = this.id;
+      id  = id.split("_");
+      id  = id[id.length-1];
+      document.getElementById("column").value = id;
+      $("#form").submit();
+      document.getElementById("form").action = window.location.href ;
+      document.getElementById("form").method = 'GET' ;
+  });
