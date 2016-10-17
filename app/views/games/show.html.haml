@@ -1,13 +1,16 @@
-%h1= player.name
-.row
-- 1.upto(game.rows) do |row|
-  - game.columns.times do |column|
-    .col-md-1{id: "row_#{row}_column_#{column}"}
-      - if move = game.moves.find_by(row: row, column:column)
-        = move.player.name
-      - else
-        0
+- if game.winner.present?
+  %h1= "WINNER #{winner.name}!!!!!"
+- else
+  %h1= player.name
   .row
+  - 1.upto(game.rows) do |row|
+    - game.columns.times do |column|
+      .col-md-1{id: "row_#{row}_column_#{column}"}
+        - if move = game.moves.find_by(row: row, column:column)
+          = move.player.name
+        - else
+          0
+    .row
 %br
 %br
 %br

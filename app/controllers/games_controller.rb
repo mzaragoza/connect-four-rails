@@ -10,6 +10,7 @@ class GamesController < ApplicationController
       players.last
     end
   }
+  expose :winner, ->{ Player.find(game.winner) }
 
   def create
     game.save
