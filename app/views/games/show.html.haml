@@ -5,7 +5,7 @@
   .row
   - 1.upto(game.rows) do |row|
     - game.columns.times do |column|
-      .col-md-1{id: "row_#{row}_column_#{column}"}
+      .col-md-1{id: "row_#{row}_column_#{column}", style: 'border-style: solid;'}
         - if move = game.moves.find_by(row: row, column:column)
           = move.player.name
         - else

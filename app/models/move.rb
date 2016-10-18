@@ -26,6 +26,12 @@ class Move < ActiveRecord::Base
     unless winner
       winner = check_if_win_by_column
     end
+    unless winner
+      winner = check_if_win_by_diagonal_left
+    end
+    unless winner
+      winner = check_if_win_by_diagonal_right
+    end
     if winner
       game = self.game
       game.winner = player.name
@@ -70,6 +76,37 @@ class Move < ActiveRecord::Base
           end
         else
           counter = 0
+        end
+      end
+    end
+    return winner = false
+  end
+
+  def check_if_win_by_diagonal_left
+    moves = players_moves
+    moves.each do |move|
+      counter = 1
+      winner = false
+      1.upto(3) do |counters|
+        if moves.where(row: row + counters, column: column - counters).count > 0
+          if counters == 3
+            return winner = true
+          end
+        end
+      end
+    end
+    return winner = false
+  end
+  def check_if_win_by_diagonal_right
+    moves = players_moves
+    moves.each do |move|
+      counter = 1
+      winner = false
+      1.upto(3) do |counters|
+        if moves.where(row: row + counters, column: column + counters).count > 0
+          if counters == 3
+            return winner = true
+          end
         end
       end
     end
