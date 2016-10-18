@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+
+.Red{   background-color: red }
+.Black{ background-color: #c3c3c3 }

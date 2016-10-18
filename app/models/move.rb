@@ -39,6 +39,7 @@ class Move < ActiveRecord::Base
     end
   end
 
+
   private
   def players_moves
     game.moves.where(player_id: player_id).order(:row, :column)
@@ -46,17 +47,15 @@ class Move < ActiveRecord::Base
 
   def check_if_win_by_row
     moves = players_moves
-    1.upto(game.rows) do |row|
+    moves.each do |move|
       winner = false
       counter = 0
-      game.columns.times do |column|
-        if moves.where(row: row, column: column).count > 0
+      1.upto(3) do |counters|
+        if moves.where(row: move.row + counters, column: move.column).count > 0
           counter = counter + 1
-          if counter >= 4
+          if counter == 3
             return winner = true
           end
-        else
-          counter = 0
         end
       end
     end
@@ -65,17 +64,15 @@ class Move < ActiveRecord::Base
 
   def check_if_win_by_column
     moves = players_moves
-    game.columns.times do |column|
+    moves.each do |move|
       winner = false
       counter = 0
-      1.upto(game.rows) do |row|
-        if moves.where(row: row, column: column).count > 0
+      1.upto(3) do |counters|
+        if moves.where(row: move.row, column: move.column + counters).count > 0
           counter = counter + 1
-          if counter >= 4
+          if counter == 3
             return winner = true
           end
-        else
-          counter = 0
         end
       end
     end
@@ -88,8 +85,9 @@ class Move < ActiveRecord::Base
       counter = 1
       winner = false
       1.upto(3) do |counters|
-        if moves.where(row: row + counters, column: column - counters).count > 0
-          if counters == 3
+        if moves.where(row: move.row + counters, column: move.column - counters).count > 0
+          counter = counter + 1
+          if counter == 3
             return winner = true
           end
         end
@@ -103,8 +101,9 @@ class Move < ActiveRecord::Base
       counter = 1
       winner = false
       1.upto(3) do |counters|
-        if moves.where(row: row + counters, column: column + counters).count > 0
-          if counters == 3
+        if moves.where(row: move.row + counters, column: move.column + counters).count > 0
+          counter = counter + 1
+          if counter == 3
             return winner = true
           end
         end
