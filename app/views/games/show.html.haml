@@ -17,19 +17,24 @@
 %br
 %br
 %br
-.row
-  .col-sm-4
-    .center-block
-      = link_to games_path(game_type: 'pc_vs_pc'), method: 'POST', class: 'btn btn-info' do
-        New Game (PC Vs PC)
-  .col-sm-4
-    .center-block
-      = link_to games_path(game_type: 'human_vs_human'), method: 'POST', class: 'btn btn-info' do
-        New Game (Humans Vs Human)
-  .col-sm-4
-    .center-block
-      = link_to games_path(game_type: 'human_vs_pc'), method: 'POST', class: 'btn btn-info' do
-        New Game (Human Vs PC)
+.container
+  .row
+    .col-sm-3
+      .center-block
+        = link_to games_path(game_type: 'pc_vs_pc'), method: 'POST', class: 'btn btn-info' do
+          New Game (PC Vs PC)
+    .col-sm-3
+      .center-block
+        = link_to games_path(game_type: 'human_vs_human'), method: 'POST', class: 'btn btn-info' do
+          New Game (Humans Vs Human)
+    .col-sm-3
+      .center-block
+        = link_to games_path(game_type: 'human_vs_pc_easy'), method: 'POST', class: 'btn btn-info' do
+          New Game (Human Vs PC essy)
+    .col-sm-3
+      .center-block
+        = link_to games_path(game_type: 'human_vs_pc_hard'), method: 'POST', class: 'btn btn-info' do
+          New Game (Human Vs PC hard)
 
 %form#form{:action => game_player_moves_path(game, game.current_player), :method => "POST", :style => "display: hidden"}
   %input#column{:name => "column", :type => "hidden", :value => "#{game.choose_column}"}/
@@ -45,7 +50,7 @@
         document.getElementById("form").action = window.location.href ;
         document.getElementById("form").method = 'GET' ;
     });
-  - if game.game_type == 'pc_vs_pc' || (game.game_type == 'human_vs_pc' && game.current_player.name == 'Black')
+  - if game.game_type == 'pc_vs_pc' || (game.game_type == 'human_vs_pc_easy' && game.current_player.name == 'Black') || (game.game_type == 'human_vs_pc_hard' && game.current_player.name == 'Black')
     :javascript
       $("#form").submit();
       document.getElementById("form").action = window.location.href ;

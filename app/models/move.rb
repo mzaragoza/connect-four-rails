@@ -21,8 +21,45 @@ class Move < ActiveRecord::Base
   end
 
   def self.get_random_columns(game)
+    if game.smart = true
+      self.smart_pick(game)
+    else
+      self.not_smart_pick(game)
+    end
+  end
+
+  def self.smart_pick(game)
+    play = self.should_pay_on_row(game)
+    if play
+      return play
+    end
+    self.not_smart_pick(game)
+  end
+
+  def self.not_smart_pick(game)
     columns = 0.upto(game.columns - 1).to_a - game.moves.where(row: 1).map(&:column).flatten
     columns.sample
+  end
+
+  def self.player_moves(game)
+    if game.moves.count < 2
+      return false
+    end
+    moves = game.moves.last.player.moves
+  end
+
+  def self.should_pay_on_row(game)
+    moves = self.player_moves(game)
+    if moves
+
+      0.upto(game.columns).each do |column|
+        if moves.where(column: column).count > 2
+
+          return column
+        end
+      end
+    end
+    return false
   end
 
   private
