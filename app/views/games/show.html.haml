@@ -9,8 +9,8 @@
       - if move = game.moves.find_by(row: row, column:column)
         %div{class: "#{move.player.name}"}
           = raw '&nbsp;'
-          = move.id - game.moves.first.id + 1
-          (#{move.id})
+          = # move.id - game.moves.first.id + 1
+          = #(#{move.id})
       - else
         = raw '&nbsp;'
   .row
@@ -32,7 +32,7 @@
         New Game (Human Vs PC)
 
 %form#form{:action => game_player_moves_path(game, game.current_player), :method => "POST", :style => "display: hidden"}
-  %input#column{:name => "column", :type => "text", :value => "#{game.choose_column}"}/
+  %input#column{:name => "column", :type => "hidden", :value => "#{game.choose_column}"}/
 
 - unless game.winner.present?
   :javascript
