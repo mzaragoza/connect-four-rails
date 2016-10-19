@@ -9,3 +9,5 @@
 
 4) rake db:migrate
 
+
+Play online connect-four-rails.herokuapp.com/
