@@ -7,10 +7,15 @@ class Game < ActiveRecord::Base
 
   def current_player
     if moves.count % 2 == 0
-      players.first
+      player = players.first
     else
-      players.last
+      player = players.last
     end
+    player
+  end
+
+  def choose_column
+    column = Move.get_random_columns(self)
   end
 
   private

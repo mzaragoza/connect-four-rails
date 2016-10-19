@@ -1,3 +1,16 @@
-= link_to games_path, method: 'POST', class: 'btn btn-info' do
-  New Game
+.container
+  .row
+    .col-sm-4
+      .center-block
+        = link_to games_path(game_type: 'pc_vs_pc'), method: 'POST', class: 'btn btn-info' do
+          New Game (PC Vs PC)
+    .col-sm-4
+      .center-block
+        = link_to games_path(game_type: 'human_vs_human'), method: 'POST', class: 'btn btn-info' do
+          New Game (Humans Vs Human)
+    .col-sm-4
+      .center-block
+        = link_to games_path(game_type: 'human_vs_pc'), method: 'POST', class: 'btn btn-info' do
+          New Game (Human Vs PC)
+
 

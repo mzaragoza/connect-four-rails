@@ -20,6 +20,11 @@ class Move < ActiveRecord::Base
     row
   end
 
+  def self.get_random_columns(game)
+    columns = 0.upto(game.columns - 1).to_a - game.moves.where(row: 1).map(&:column).flatten
+    columns.sample
+  end
+
   private
   def winning_move?
     winner = check_if_win_by_row

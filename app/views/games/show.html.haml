@@ -9,17 +9,30 @@
       - if move = game.moves.find_by(row: row, column:column)
         %div{class: "#{move.player.name}"}
           = raw '&nbsp;'
+          = move.id - game.moves.first.id + 1
+          (#{move.id})
       - else
         = raw '&nbsp;'
   .row
 %br
 %br
 %br
-= link_to games_path, method: 'POST', class: 'btn btn-info' do
-  New Game
+.row
+  .col-sm-4
+    .center-block
+      = link_to games_path(game_type: 'pc_vs_pc'), method: 'POST', class: 'btn btn-info' do
+        New Game (PC Vs PC)
+  .col-sm-4
+    .center-block
+      = link_to games_path(game_type: 'human_vs_human'), method: 'POST', class: 'btn btn-info' do
+        New Game (Humans Vs Human)
+  .col-sm-4
+    .center-block
+      = link_to games_path(game_type: 'human_vs_pc'), method: 'POST', class: 'btn btn-info' do
+        New Game (Human Vs PC)
 
 %form#form{:action => game_player_moves_path(game, game.current_player), :method => "POST", :style => "display: hidden"}
-  %input#column{:name => "column", :type => "hidden", :value => ""}/
+  %input#column{:name => "column", :type => "text", :value => "#{game.choose_column}"}/
 
 - unless game.winner.present?
   :javascript
@@ -32,3 +45,8 @@
         document.getElementById("form").action = window.location.href ;
         document.getElementById("form").method = 'GET' ;
     });
+  - if game.game_type == 'pc_vs_pc' || (game.game_type == 'human_vs_pc' && game.current_player.name == 'Black')
+    :javascript
+      $("#form").submit();
+      document.getElementById("form").action = window.location.href ;
+      document.getElementById("form").method = 'GET' ;
