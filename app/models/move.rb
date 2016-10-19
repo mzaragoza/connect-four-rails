@@ -20,8 +20,8 @@ class Move < ActiveRecord::Base
     row
   end
 
+  private
   def winning_move?
-    #get all moves by player
     winner = check_if_win_by_row
     unless winner
       winner = check_if_win_by_column
@@ -39,8 +39,6 @@ class Move < ActiveRecord::Base
     end
   end
 
-
-  private
   def players_moves
     game.moves.where(player_id: player_id).order(:row, :column)
   end
@@ -82,7 +80,7 @@ class Move < ActiveRecord::Base
   def check_if_win_by_diagonal_left
     moves = players_moves
     moves.each do |move|
-      counter = 1
+      counter = 0
       winner = false
       1.upto(3) do |counters|
         if moves.where(row: move.row + counters, column: move.column - counters).count > 0
@@ -95,10 +93,11 @@ class Move < ActiveRecord::Base
     end
     return winner = false
   end
+
   def check_if_win_by_diagonal_right
     moves = players_moves
     moves.each do |move|
-      counter = 1
+      counter = 0
       winner = false
       1.upto(3) do |counters|
         if moves.where(row: move.row + counters, column: move.column + counters).count > 0
