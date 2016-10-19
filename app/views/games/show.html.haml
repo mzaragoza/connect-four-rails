@@ -9,7 +9,6 @@
       - if move = game.moves.find_by(row: row, column:column)
         %div{class: "#{move.player.name}"}
           = raw '&nbsp;'
-          = move.id
       - else
         = raw '&nbsp;'
   .row
